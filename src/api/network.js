@@ -66,7 +66,7 @@ export async function getPopularData() {
 // Function to get trending anime data
 export async function getTrendingData() {
   try {
-    const data = await fetchData('trending?page=1&perPage=4');
+    const data = await fetchData('trending?page=2&perPage=10');
     return data.results.map(anime => ({
       id: anime.id,
       title: anime.title,

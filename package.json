@@ -1,5 +1,5 @@
 {
-  "name": "AniLab",
+  "name": "AniTaku",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -14,6 +14,7 @@
     "@react-navigation/bottom-tabs": "^6.5.11",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
+    "axios": "^1.6.2",
     "iconsax-react-native": "^0.0.8",
     "nativewind": "^2.0.11",
     "react": "18.2.0",

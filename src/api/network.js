@@ -123,3 +123,33 @@ export async function episodeData(episodeId) {
     throw error;
   }
 }
+
+export async function getEpisodeData(id) {
+  try {
+    const data = await fetchData(`info/${id}`);
+    return {
+      anime: {
+        id: data.id,
+        title: data.title,
+        image: data.image,
+        trailer: data.trailer,
+        description: data.description,
+        status: data.status,
+        cover: data.cover,
+        rating: `${data.rating} %`,
+        releaseDate: data.releaseDate,
+        genres: data.genres,
+        totalEpisodes: data.totalEpisodes,
+        duration: data.duration,
+        // Add additional properties here
+        season: data.season,
+        subOrDub: data.subOrDub,
+        recommendations: data.recommendations,
+        characters: data.characters,
+        episodes: data.episodes,
+      },
+    };
+  } catch (error) {
+    throw error;
+  }
+}

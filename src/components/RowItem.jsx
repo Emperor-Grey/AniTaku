@@ -19,7 +19,6 @@ const RowItem = props => {
   const navigation = useNavigation();
 
   const handleItemPress = async item => {
-    console.log(item.episodeId);
     if (item.rating) {
       navigation.navigate('Details', {item});
     } else {

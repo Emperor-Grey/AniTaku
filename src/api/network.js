@@ -18,7 +18,7 @@ async function fetchData(endpoint) {
 export async function getRecentEpisodes() {
   try {
     const data = await fetchData(
-      'recent-episodes?page=1&perPage=30&provider=gogoanime',
+      'recent-episodes?page=1&perPage=15&provider=gogoanime',
     );
     return data.results.map(anime => {
       return {

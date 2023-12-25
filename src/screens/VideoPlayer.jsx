@@ -18,9 +18,6 @@ export default function VideoPlayer({route}) {
     const fetchEpisodeLinks = async () => {
       try {
         const data = await episodeData(item.episodeId);
-        console.log('Episode Data:', data);
-
-        // Assuming 'data.sources' is an array of episode links
         if (data && data.sources) {
           setEpisodeLinks(data.sources);
         }
@@ -28,7 +25,7 @@ export default function VideoPlayer({route}) {
         console.error('Error fetching episode links:', error);
         // Handle error if needed
       } finally {
-        setIsLoading(false); // Set loading to false whether successful or not
+        setIsLoading(false);
       }
     };
 
@@ -67,7 +64,7 @@ export default function VideoPlayer({route}) {
           fullscreen={true}
           paused={false}
           controls={true}
-          onLoad={() => setIsLoading(false)} // Set loading to false once video is loaded
+          onLoad={() => setIsLoading(false)}
         />
       )}
     </View>

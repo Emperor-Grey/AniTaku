@@ -2,6 +2,8 @@ import {useNavigation} from '@react-navigation/native';
 import {ArrowLeft2, Heart} from 'iconsax-react-native';
 import React, {useEffect, useState} from 'react';
 import {
+  ActivityIndicator,
+  Clipboard,
   ImageBackground,
   StyleSheet,
   Text,
@@ -20,6 +22,8 @@ const Details = ({route}) => {
   const {item} = route.params;
   const nav = useNavigation();
   const [isFav, setIsFav] = useState(false);
+  const [showFullDescription, setShowFullDescription] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [animeDetails, setAnimeDetails] = useState(null);
 
   useEffect(() => {
@@ -27,8 +31,10 @@ const Details = ({route}) => {
       try {
         const details = await getEpisodeData(id);
         setAnimeDetails(details.anime);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching anime details:', error);
+        setLoading(false);
       }
     };
 
@@ -36,12 +42,32 @@ const Details = ({route}) => {
     fetchAnimeDetails(item.id);
   }, [item.id]);
 
-  console.log(animeDetails);
+  if (loading) {
+    // Render loading indicator while data is being fetched
+    return (
+      <View className="flex-1 justify-center items-center bg-neutral-950">
+        <ActivityIndicator size="large" color="##a3ef29" />
+      </View>
+    );
+  }
+
+  if (!animeDetails) {
+    // Handle the case where animeDetails is still null (data fetching failed)
+    return (
+      <View className="flex-1 justify-center items-center bg-neutral-950">
+        <Text className="text-red font-semibold text-lg">
+          Error fetching anime details
+        </Text>
+      </View>
+    );
+  }
+
+  console.log(animeDetails.id);
 
   return (
     <View className="flex-1 bg-neutral-950">
       <ImageBackground
-        source={{uri: item.image}}
+        source={{uri: animeDetails.image}}
         resizeMode="cover"
         style={styles.image}>
         <LinearGradient
@@ -75,31 +101,31 @@ const Details = ({route}) => {
             </SafeAreaView>
             <View className="justify-end flex-1 items-center px-4">
               <Text className="text-lime-400 text-center text-3xl font-bold tracking-wider">
-                {item.title.english[0]}
+                {animeDetails.title.english[0]}
                 <Text className="text-white font-medium text-2xl">
-                  {item.title.english.substring(1)}
+                  {animeDetails.title.english.substring(1)}
                 </Text>
               </Text>
             </View>
             <View className="flex-row justify-center items-center mt-1">
               <Text className="text-neutral-400 font-semibold text-base text-center">
-                {item.status} •
+                {animeDetails.status} •
               </Text>
               <Text className="text-neutral-400 font-semibold text-base text-center">
                 {' '}
-                {item.releaseDate} •
+                {animeDetails.releaseDate} •
               </Text>
               <Text className="text-neutral-400 font-semibold text-base text-center">
                 {' '}
-                {item.duration} hrs
+                {animeDetails.duration} hrs
               </Text>
             </View>
           </View>
           <View className="flex-row items-center justify-center mb-3">
-            {item.genres.map((genre, index) => (
+            {animeDetails.genres.map((genre, index) => (
               <React.Fragment key={index}>
                 <Text className="text-gray-300">{genre}</Text>
-                {index < item.genres.length - 1 && (
+                {index < animeDetails.genres.length - 1 && (
                   <Text className="text-neutral-400 font-semibold text-2xl text-center">
                     {' '}
                     •{' '}
@@ -110,9 +136,30 @@ const Details = ({route}) => {
           </View>
         </LinearGradient>
       </ImageBackground>
-      <Text className="text-neutral-400 mx-4 tracking-wide">
-        {item.description}
+
+      <Text
+        className="text-sm text-white p-3 font-normal"
+        onLongPress={() => Clipboard.setString(animeDetails.description)}>
+        {showFullDescription
+          ? animeDetails.description
+          : animeDetails.description.substring(0, 320) + '...'}
+        {!showFullDescription ? (
+          <Text
+            className="text-lime-300 text-sm"
+            onPress={() => setShowFullDescription(true)}>
+            Read More
+          </Text>
+        ) : (
+          <Text
+            className="text-lime-300 text-sm"
+            onPress={() => setShowFullDescription(false)}>
+            Read Less
+          </Text>
+        )}
       </Text>
+      {/* Character Components  */}
+
+      {/* episode Flatlist */}
     </View>
   );
 };

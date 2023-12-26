@@ -157,9 +157,9 @@ const Details = ({route}) => {
           </Text>
         )}
       </Text>
-      {/* Character Components  */}
-
       {/* episode Flatlist */}
+
+      {/* Character Components  */}
     </View>
   );
 };

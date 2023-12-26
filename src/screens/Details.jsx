@@ -5,6 +5,7 @@ import {
   ActivityIndicator,
   Clipboard,
   ImageBackground,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -62,10 +63,8 @@ const Details = ({route}) => {
     );
   }
 
-  console.log(animeDetails.id);
-
   return (
-    <View className="flex-1 bg-neutral-950">
+    <ScrollView className="flex-1 bg-neutral-950">
       <ImageBackground
         source={{uri: animeDetails.image}}
         resizeMode="cover"
@@ -137,30 +136,46 @@ const Details = ({route}) => {
         </LinearGradient>
       </ImageBackground>
 
-      <Text
-        className="text-sm text-white p-3 font-normal"
-        onLongPress={() => Clipboard.setString(animeDetails.description)}>
-        {showFullDescription
-          ? animeDetails.description
-          : animeDetails.description.substring(0, 320) + '...'}
-        {!showFullDescription ? (
-          <Text
-            className="text-lime-300 text-sm"
-            onPress={() => setShowFullDescription(true)}>
-            Read More
+      {/* Content below ImageBackground */}
+      <View className="flex-1 bg-neutral-950 p-2">
+        <Text className="text-lime-300 text-3xl font-medium px-1">
+          S
+          <Text className="text-white text-2xl font-medium">
+            tory{' '}
+            <Text className="text-lime-300 text-3xl font-medium">
+              L<Text className="text-white text-2xl font-medium">ine</Text>
+            </Text>
           </Text>
-        ) : (
-          <Text
-            className="text-lime-300 text-sm"
-            onPress={() => setShowFullDescription(false)}>
-            Read Less
-          </Text>
-        )}
-      </Text>
-      {/* episode Flatlist */}
+        </Text>
 
-      {/* Character Components  */}
-    </View>
+        <Text
+          className="text-sm text-white p-3 font-normal"
+          onLongPress={() => Clipboard.setString(animeDetails.description)}>
+          {showFullDescription
+            ? animeDetails.description
+            : animeDetails.description.substring(0, 320) + '...'}
+          {!showFullDescription ? (
+            <Text
+              className="text-lime-300 text-sm"
+              onPress={() => setShowFullDescription(true)}>
+              Read More
+            </Text>
+          ) : (
+            <Text
+              className="text-lime-300 text-sm"
+              onPress={() => setShowFullDescription(false)}>
+              Read Less
+            </Text>
+          )}
+        </Text>
+        {/* episode Flatlist */}
+        <Text className="text-lime-300 text-3xl font-medium px-1">
+          E<Text className="text-white text-2xl font-medium">pisodes</Text>
+        </Text>
+
+        {/* Character Components  */}
+      </View>
+    </ScrollView>
   );
 };
 
@@ -170,6 +185,6 @@ const styles = StyleSheet.create({
   image: {
     resizeMode: 'stretch',
     width: responsiveWidth(100),
-    height: responsiveHeight(55),
+    height: responsiveHeight(50),
   },
 });

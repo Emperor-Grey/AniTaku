@@ -117,6 +117,15 @@ export async function getTrendingData() {
 // function to fetch episodeData
 export async function episodeData(episodeId) {
   try {
+    const data = await fetchData(`watch/${episodeId}`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function RecentEpisodeData(episodeId) {
+  try {
     const data = await fetchData(`watch${episodeId}`);
     return data;
   } catch (error) {

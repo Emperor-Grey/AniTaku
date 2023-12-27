@@ -9,6 +9,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import Details from '../screens/Details';
 import Home from '../screens/Home';
+import RecentVideoPlayer from '../screens/RecentVideoPlayer';
 import Search from '../screens/Search';
 import VideoPlayer from '../screens/VideoPlayer';
 import YoutubePlayerScreen from '../screens/YoutubePlayer';
@@ -78,6 +79,7 @@ const AppNavigator = () => {
       <Stack.Screen name="Search" component={Search} />
       <Stack.Screen name="YoutubePlayer" component={YoutubePlayerScreen} />
       <Stack.Screen name="VideoPlayer" component={VideoPlayer} />
+      <Stack.Screen name="Recent" component={RecentVideoPlayer} />
       <Stack.Screen name="Details" component={Details} />
     </Stack.Navigator>
   );

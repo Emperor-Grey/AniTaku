@@ -16,8 +16,10 @@ import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
+// import AnimeDetailsTabs from '../navigation/AnimeDetailsTabs'
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {getEpisodeData} from '../api/network';
+import EpisodeRow from '../components/EpisodeRow';
 
 const Details = ({route}) => {
   const {item} = route.params;
@@ -52,13 +54,18 @@ const Details = ({route}) => {
     );
   }
 
-  if (!animeDetails) {
+  if (!animeDetails.title) {
     // Handle the case where animeDetails is still null (data fetching failed)
     return (
       <View className="flex-1 justify-center items-center bg-neutral-950">
-        <Text className="text-red font-semibold text-lg">
-          Error fetching anime details
+        <Text className="text-white font-semibold text-xl px-8 text-center">
+          Error Fetching Anime Info Kindly Wait for the Fix
         </Text>
+        <TouchableOpacity
+          className="bg-red-400 p-2 mt-4 rounded-lg"
+          onPress={() => nav.goBack()}>
+          <Text className="text-neutral-50 text-md font-bold">Go Back</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -173,7 +180,10 @@ const Details = ({route}) => {
           E<Text className="text-white text-2xl font-medium">pisodes</Text>
         </Text>
 
-        {/* Character Components  */}
+        <EpisodeRow data={animeDetails.episodes} />
+
+        {/* Character and Recomendation Components  */}
+        {/* <AnimeDetailsTabs /> */}
       </View>
     </ScrollView>
   );
@@ -186,5 +196,10 @@ const styles = StyleSheet.create({
     resizeMode: 'stretch',
     width: responsiveWidth(100),
     height: responsiveHeight(50),
+  },
+  episodeImage: {
+    width: responsiveWidth(43),
+    resizeMode: 'cover',
+    height: responsiveHeight(15),
   },
 });

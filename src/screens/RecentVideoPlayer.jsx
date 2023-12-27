@@ -3,9 +3,9 @@ import React, {useEffect, useRef, useState} from 'react';
 import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import Orientation from 'react-native-orientation-locker';
 import Video from 'react-native-video';
-import {episodeData} from '../api/network';
+import {RecentEpisodeData} from '../api/network';
 
-export default function VideoPlayer({route}) {
+export default function RecentVideoPlayer({route}) {
   const videoRef = useRef(null);
   const {item} = route.params;
   const [episodeLinks, setEpisodeLinks] = useState([]);
@@ -17,7 +17,7 @@ export default function VideoPlayer({route}) {
 
     const fetchEpisodeLinks = async () => {
       try {
-        const data = await episodeData(item.id);
+        const data = await RecentEpisodeData(item.episodeId);
         if (data && data.sources) {
           setEpisodeLinks(data.sources);
         }
@@ -35,7 +35,7 @@ export default function VideoPlayer({route}) {
     return () => {
       Orientation.unlockAllOrientations();
     };
-  }, [item.id]);
+  }, [item.episodeId]);
 
   // Map the links to create an object with quality as the key and URL as the value
   const qualityLinks = {};

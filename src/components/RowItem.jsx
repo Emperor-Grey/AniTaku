@@ -22,7 +22,7 @@ const RowItem = props => {
     if (item.rating) {
       navigation.navigate('Details', {item});
     } else {
-      navigation.navigate('VideoPlayer', {item});
+      navigation.navigate('Recent', {item});
     }
   };
 

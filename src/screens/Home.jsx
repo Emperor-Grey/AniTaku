@@ -11,6 +11,7 @@ import {
   getRecentEpisodes,
   getTrendingData,
 } from '../api/network';
+import Fab from '../components/Fab';
 import HomeBanner from '../components/HomeBanner';
 import RowItem from '../components/RowItem';
 
@@ -66,6 +67,7 @@ const Home = () => {
           </>
         )}
       </ScrollView>
+      <Fab />
     </View>
   );
 };

@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
 import {ArrowLeft2, Heart} from 'iconsax-react-native';
 import React, {useEffect, useState} from 'react';
@@ -8,6 +9,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -27,6 +29,7 @@ const Details = ({route}) => {
   const [isFav, setIsFav] = useState(false);
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [enteredEpisode, setEnteredEpisode] = useState('');
   const [animeDetails, setAnimeDetails] = useState(null);
 
   useEffect(() => {
@@ -127,18 +130,24 @@ const Details = ({route}) => {
               </Text>
             </View>
           </View>
-          <View className="flex-row items-center justify-center mb-3">
-            {animeDetails.genres.map((genre, index) => (
-              <React.Fragment key={index}>
-                <Text className="text-gray-300">{genre}</Text>
-                {index < animeDetails.genres.length - 1 && (
-                  <Text className="text-neutral-400 font-semibold text-2xl text-center">
-                    {' '}
-                    •{' '}
-                  </Text>
-                )}
-              </React.Fragment>
-            ))}
+          <View className="flex-row items-center justify-center mb-3 px-9">
+            <ScrollView
+              nestedScrollEnabled
+              horizontal
+              contentContainerStyle={styles.center}
+              showsHorizontalScrollIndicator={false}>
+              {animeDetails.genres.map((genre, index) => (
+                <React.Fragment key={index}>
+                  <Text className="text-gray-300 text-center">{genre}</Text>
+                  {index < animeDetails.genres.length - 1 && (
+                    <Text className="text-neutral-400 font-semibold text-2xl text-center justify-center items-center">
+                      {' '}
+                      •{' '}
+                    </Text>
+                  )}
+                </React.Fragment>
+              ))}
+            </ScrollView>
           </View>
         </LinearGradient>
       </ImageBackground>
@@ -175,14 +184,33 @@ const Details = ({route}) => {
             </Text>
           )}
         </Text>
-        {/* episode Flatlist */}
-        <Text className="text-lime-300 text-3xl font-medium px-1">
-          E<Text className="text-white text-2xl font-medium">pisodes</Text>
-        </Text>
+        {/* episode Row */}
+        <View className="justify-between items-center flex-row">
+          <Text className="text-lime-300 text-3xl font-medium px-1">
+            E
+            <Text className="text-white text-2xl font-medium">
+              pisodes ({animeDetails.totalEpisodes})
+            </Text>
+          </Text>
+          <TextInput
+            className="border-gray-600 border rounded-md w-28 h-10 text-white mr-2"
+            keyboardType="numeric"
+            placeholder="Enter ep"
+            placeholderTextColor="white"
+            placeholderStyle={{fontSize: 13, padding: 2}}
+            value={enteredEpisode}
+            onChangeText={text => {
+              setEnteredEpisode(text);
+            }}
+          />
+        </View>
+        {/* FlatList For Episodes */}
+        <EpisodeRow
+          data={animeDetails.episodes}
+          enteredEpisode={enteredEpisode}
+        />
 
-        <EpisodeRow data={animeDetails.episodes} />
-
-        {/* Character and Recomendation Components  */}
+        {/* Character and Recommendations Components  */}
         {/* <AnimeDetailsTabs /> */}
       </View>
     </ScrollView>
@@ -195,11 +223,15 @@ const styles = StyleSheet.create({
   image: {
     resizeMode: 'stretch',
     width: responsiveWidth(100),
-    height: responsiveHeight(50),
+    height: responsiveHeight(60),
+  },
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   episodeImage: {
-    width: responsiveWidth(43),
+    width: responsiveWidth(44),
     resizeMode: 'cover',
-    height: responsiveHeight(15),
+    height: responsiveHeight(18),
   },
 });

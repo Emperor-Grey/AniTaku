@@ -26,9 +26,14 @@ const RowItem = props => {
     }
   };
 
+  const handleLongPress = async item => {
+    navigation.navigate('Details', {item});
+  };
+
   const renderItem = ({item}) => (
     <TouchableOpacity
       className="items-center mt-2 mb-2 justify-center px-1 flex-1"
+      onLongPress={() => handleLongPress(item)}
       onPress={() => handleItemPress(item)}>
       <ImageBackground
         source={{uri: item.image}}
@@ -55,10 +60,16 @@ const RowItem = props => {
         numberOfLines={1}
         ellipsizeMode="tail"
         className="text-white text-base text-ellipsis mt-1 items-start justify-start overflow-hidden">
-        {item.title.english && item.title.english.length <= 16
-          ? item.title.english
-          : item.title.english
-          ? `${item.title.english.slice(0, 14)}...`
+        {item.rating
+          ? item.title.english && item.title.english.length <= 16
+            ? item.title.english
+            : item.title.english
+            ? `${item.title.english.slice(0, 14)}...`
+            : 'No Name'
+          : item.title.romaji.romaji && item.title.romaji.length <= 16
+          ? item.title.romaji
+          : item.title.romaji
+          ? `${item.title.romaji.slice(0, 14)}...`
           : 'No Name'}
       </Text>
     </TouchableOpacity>
@@ -96,7 +107,7 @@ const styles = StyleSheet.create({
   image: {
     borderRadius: 18,
     overflow: 'hidden',
-    width: responsiveWidth(38),
-    height: responsiveHeight(24),
+    width: responsiveWidth(35),
+    height: responsiveHeight(22),
   },
 });

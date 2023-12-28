@@ -1,6 +1,6 @@
 // network.js
 
-const BASE_URL = 'http://192.168.0.104:3000/meta/anilist';
+const BASE_URL = 'http://192.168.0.104:3000';
 
 // Helper function to handle API requests
 async function fetchData(endpoint) {
@@ -18,7 +18,7 @@ async function fetchData(endpoint) {
 export async function getRecentEpisodes() {
   try {
     const data = await fetchData(
-      'recent-episodes?page=1&perPage=15&provider=gogoanime',
+      'meta/anilist/recent-episodes?page=1&perPage=15&provider=gogoanime',
     );
     return data.results.map(anime => {
       return {
@@ -39,7 +39,7 @@ export async function getRecentEpisodes() {
 // Function to get popular anime data
 export async function getPopularData() {
   try {
-    const data = await fetchData('popular?page=1&perPage=10');
+    const data = await fetchData('meta/anilist/popular?page=1&perPage=10');
     return data.results.map(anime => {
       return {
         id: anime.id,
@@ -63,30 +63,31 @@ export async function getPopularData() {
   }
 }
 
-// Function to get trending anime data
-export async function getTrendingData() {
-  try {
-    const data = await fetchData('trending?page=2&perPage=10');
-    return data.results.map(anime => ({
-      id: anime.id,
-      title: anime.title,
-      image: anime.image,
-      trailer: anime.trailer,
-      description: anime.description,
-      status: anime.status,
-      cover: anime.cover,
-      rating: `${anime.rating}%`,
-      releaseDate: anime.releaseDate,
-      color: anime.color,
-      genres: anime.genres,
-      totalEpisodes: anime.totalEpisodes,
-      duration: anime.duration,
-      type: anime.type,
-    }));
-  } catch (error) {
-    throw error;
-  }
-}
+// // Function to get trending anime data
+//! i don't trust this shit
+// export async function getTrendingData() {
+//   try {
+//     const data = await fetchData('meta/anilist/trending?page=3&perPage=10');
+//     return data.results.map(anime => ({
+//       id: anime.id,
+//       title: anime.title,
+//       image: anime.image,
+//       trailer: anime.trailer,
+//       description: anime.description,
+//       status: anime.status,
+//       cover: anime.cover,
+//       rating: `${anime.rating}%`,
+//       releaseDate: anime.releaseDate,
+//       color: anime.color,
+//       genres: anime.genres,
+//       totalEpisodes: anime.totalEpisodes,
+//       duration: anime.duration,
+//       type: anime.type,
+//     }));
+//   } catch (error) {
+//     throw error;
+//   }
+// }
 
 // Function to get random anime data
 // ! For Strange Reason This Does not work every time hence not used
@@ -117,7 +118,7 @@ export async function getTrendingData() {
 // function to fetch episodeData
 export async function episodeData(episodeId) {
   try {
-    const data = await fetchData(`watch/${episodeId}`);
+    const data = await fetchData(`meta/anilist/watch/${episodeId}`);
     return data;
   } catch (error) {
     throw error;
@@ -126,7 +127,7 @@ export async function episodeData(episodeId) {
 
 export async function RecentEpisodeData(episodeId) {
   try {
-    const data = await fetchData(`watch${episodeId}`);
+    const data = await fetchData(`meta/anilist/watch${episodeId}`);
     return data;
   } catch (error) {
     throw error;
@@ -135,7 +136,7 @@ export async function RecentEpisodeData(episodeId) {
 
 export async function getEpisodeData(id) {
   try {
-    const data = await fetchData(`info/${id}`);
+    const data = await fetchData(`meta/anilist/info/${id}`);
     return {
       anime: {
         id: data.id,
@@ -158,6 +159,31 @@ export async function getEpisodeData(id) {
         episodes: data.episodes,
       },
     };
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Function to get anime data by genre
+export async function getAnimeDataByGenre(genre, page = 1, perPage = 15) {
+  try {
+    const data = await fetchData(
+      `meta/anilist/advanced-search?genres=["${genre}"]&page=${page}&perPage=${perPage}`,
+    );
+    return data.results.map(anime => ({
+      id: anime.id,
+      title: anime.title,
+      image: anime.image,
+      description: anime.description,
+      status: anime.status,
+      cover: anime.cover,
+      rating: `${anime.rating} %`,
+      releaseDate: anime.releaseDate,
+      color: anime.color,
+      genres: anime.genres,
+      totalEpisodes: anime.totalEpisodes,
+      type: anime.type,
+    }));
   } catch (error) {
     throw error;
   }

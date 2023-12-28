@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
@@ -7,17 +8,32 @@ import {
   View,
 } from 'react-native';
 import {
+  getAnimeDataByGenre,
   getPopularData,
   getRecentEpisodes,
-  getTrendingData,
 } from '../api/network';
 import Fab from '../components/Fab';
 import HomeBanner from '../components/HomeBanner';
 import RowItem from '../components/RowItem';
 
+const genres = [
+  'Comedy',
+  'Fantasy',
+  'Horror',
+  'Mecha',
+  'Music',
+  'Mystery',
+  'Psychological',
+  'Romance',
+  'Sci-Fi',
+  'Slice of Life',
+  'Sports',
+  'Thriller',
+];
+
 const Home = () => {
   const [popularData, setPopularData] = useState([]);
-  const [trendingData, setTrendingData] = useState([]);
+  const [genreData, setGenreData] = useState({});
   const [recentEpisode, setRecentEpisode] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -25,11 +41,17 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const popular = await getPopularData();
-        const trending = await getTrendingData();
+        const dataPromises = genres.map(async genre => {
+          const genreData = await getAnimeDataByGenre(genre);
+          return {[genre]: genreData};
+        });
         const recentEpisodes = await getRecentEpisodes();
 
+        const genreDataArray = await Promise.all(dataPromises);
+        const combinedGenreData = Object.assign({}, ...genreDataArray);
+
         setPopularData(popular);
-        setTrendingData(trending);
+        setGenreData(combinedGenreData);
         setRecentEpisode(recentEpisodes);
         setIsLoading(false);
       } catch (error) {
@@ -63,7 +85,9 @@ const Home = () => {
           <>
             <RowItem name="Recent Episodes" data={recentEpisode} />
             <RowItem name="Popular" data={popularData} />
-            <RowItem name="Trending" data={trendingData} />
+            {genres.map(genre => (
+              <RowItem key={genre} name={genre} data={genreData[genre] || []} />
+            ))}
           </>
         )}
       </ScrollView>

@@ -20,17 +20,17 @@ const Fab = () => {
     setPop(true);
     Animated.timing(icon_1, {
       toValue: 120,
-      duration: 500,
+      duration: 150,
       useNativeDriver: false,
     }).start();
     Animated.timing(icon_2, {
       toValue: 100,
-      duration: 500,
+      duration: 350,
       useNativeDriver: false,
     }).start();
     Animated.timing(icon_3, {
       toValue: 120,
-      duration: 500,
+      duration: 420,
       useNativeDriver: false,
     }).start();
   };

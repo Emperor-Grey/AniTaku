@@ -1,12 +1,47 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, View} from 'react-native';
+import {getSchedule} from '../api/network';
+const Calendar = () => {
+  const [schedule, setSchedule] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-const Calender = () => {
+  useEffect(() => {
+    const fetchSchedule = async () => {
+      try {
+        const result = await getSchedule();
+        setSchedule(result);
+      } catch (error) {
+        console.error('Error fetching schedule:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSchedule();
+  }, []);
+
+  console.log(schedule);
+
+  // Render loading state while fetching data
+  if (loading) {
+    return (
+      <View className="bg-neutral-950 flex-1 justify-center items-center">
+        <Text className="text-white text-4xl">Loading...</Text>
+      </View>
+    );
+  }
+
+  // Render the schedule data
   return (
     <View className="bg-neutral-950 flex-1 justify-center items-center">
-      <Text className="text-white text-4xl">Calender not implemented</Text>
+      {schedule && (
+        <View>
+          {/* Render the schedule data here */}
+          <Text className="text-white">{schedule.sunday[0].title.english}</Text>
+        </View>
+      )}
     </View>
   );
 };
 
-export default Calender;
+export default Calendar;

@@ -90,8 +90,8 @@ export default Fab;
 const styles = StyleSheet.create({
   circle: {
     backgroundColor: 'rgb(31 41 65)',
-    width: 57,
-    height: 57,
+    width: 55,
+    height: 55,
     position: 'absolute',
     bottom: 20,
     right: 20,

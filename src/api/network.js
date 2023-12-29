@@ -188,3 +188,38 @@ export async function getAnimeDataByGenre(genre, page = 1, perPage = 15) {
     throw error;
   }
 }
+
+export async function getSchedule() {
+  try {
+    // const url = 'https://api.anify.tv/schedule?type=anime&fields=[id,title,coverImage,status,season,currentEpisode,mappings,synonyms,countryOfOrigin,description,duration,color,year,rating,popularity,type,format,relations,totalEpisodes,genres,tags,episodes,averageRating,averagePopularity,artwork,characters,airingAt,airingEpisode]';
+    const url = 'https://api.anify.tv/schedule?type=anime';
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    const schedule = {
+      sunday: mapAnimeData(data.sunday),
+      monday: mapAnimeData(data.monday),
+      tuesday: mapAnimeData(data.thursday),
+      wednesday: mapAnimeData(data.wednesday),
+      thursday: mapAnimeData(data.thursday),
+      friday: mapAnimeData(data.friday),
+      saturday: mapAnimeData(data.saturday),
+    };
+
+    return schedule;
+  } catch (error) {
+    throw error;
+  }
+}
+
+function mapAnimeData(animeArray) {
+  return animeArray.map(anime => ({
+    id: anime.id,
+    coverImage: anime.coverImage,
+    title: anime.title,
+    color: anime.color,
+    airingAt: anime.airingAt,
+    airingEpisode: anime.airingEpisode,
+  }));
+}

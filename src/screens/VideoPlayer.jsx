@@ -83,7 +83,10 @@ export default function MyVideoPlayer({route}) {
             resizeMode="stretch"
             disableOverlay
             disableFullscreen
+            title={item.title.english || item.title.romaji}
             doubleTapTime={10}
+            showHours
+            seekColor="lime"
             isFullscreen={true}
             tapAnywhereToPause={false}
             navigator={nav}

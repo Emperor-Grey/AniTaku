@@ -1,13 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useRef, useState} from 'react';
-import {
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
 import Orientation from 'react-native-orientation-locker';
 // import Video from 'react-native-video';
 import VideoPlayer from 'react-native-media-console';
@@ -73,9 +67,9 @@ export default function MyVideoPlayer({route}) {
   };
 
   return !error ? (
-    <View style={styles.container}>
+    <View className="flex-1">
       {isLoading && (
-        <View style={styles.loaderContainer}>
+        <View className="flex-1 justify-center items-center bg-neutral-900">
           <ActivityIndicator size="large" color="#FFF" />
         </View>
       )}
@@ -87,9 +81,12 @@ export default function MyVideoPlayer({route}) {
             source={{uri: selectedSource}}
             style={{width: '100%', height: '100%'}}
             resizeMode="stretch"
-            disableFullscreen
             disableOverlay
+            disableFullscreen
+            title={item.title.english || item.title.romaji}
             doubleTapTime={10}
+            showHours
+            seekColor="lime"
             isFullscreen={true}
             tapAnywhereToPause={false}
             navigator={nav}
@@ -111,20 +108,13 @@ export default function MyVideoPlayer({route}) {
       )}
     </View>
   ) : (
-    <View style={styles.container}>
-      <Text style={styles.errorText}>{error}</Text>
+    <View className="bg-neutral-900 justify-center items-center flex-1">
+      <Text className="text-white text-2xl">{error}</Text>
+      <TouchableOpacity
+        className="bg-red-400 p-2 mt-4 rounded-lg"
+        onPress={() => nav.goBack()}>
+        <Text className="text-neutral-50 text-md font-bold">Go Back</Text>
+      </TouchableOpacity>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  loaderContainer: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'black',
-  },
-});

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View} from 'react-native';
+import {SafeAreaView, Text, View} from 'react-native';
 import {getSchedule} from '../api/network';
 const Calendar = () => {
   const [schedule, setSchedule] = useState(null);
@@ -33,12 +33,11 @@ const Calendar = () => {
 
   // Render the schedule data
   return (
-    <View className="bg-neutral-950 flex-1 justify-center items-center">
+    <View className="bg-neutral-950 flex-1">
       {schedule && (
-        <View>
-          {/* Render the schedule data here */}
+        <SafeAreaView>
           <Text className="text-white">{schedule.sunday[0].title.english}</Text>
-        </View>
+        </SafeAreaView>
       )}
     </View>
   );

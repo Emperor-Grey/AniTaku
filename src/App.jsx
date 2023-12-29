@@ -1,5 +1,6 @@
 import {NavigationContainer} from '@react-navigation/native';
 import React, {useEffect} from 'react';
+import {StatusBar} from 'react-native';
 import {
   hideNavigationBar,
   showNavigationBar,
@@ -18,6 +19,7 @@ const App = () => {
 
   return (
     <NavigationContainer>
+      <StatusBar hidden={true} />
       <AppNavigator />
     </NavigationContainer>
   );

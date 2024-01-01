@@ -1,6 +1,6 @@
 // network.js
 
-const BASE_URL = 'https://consumet-anime-api.vercel.app';
+const BASE_URL = 'http://192.168.0.104:3000';
 
 // Helper function to handle API requests
 async function fetchData(endpoint) {
@@ -10,7 +10,7 @@ async function fetchData(endpoint) {
     return data;
   } catch (error) {
     console.error('Error fetching data:', error);
-    throw error; // Re-throw the error to handle it in the component
+    throw error;
   }
 }
 
@@ -64,7 +64,7 @@ export async function getPopularData() {
 }
 
 // // Function to get trending anime data
-//! i don't trust this shit
+//! i don't trust this Bullshit
 // export async function getTrendingData() {
 //   try {
 //     const data = await fetchData('meta/anilist/trending?page=3&perPage=10');
@@ -115,7 +115,7 @@ export async function getPopularData() {
 //   }
 // }
 
-// function to fetch episodeData
+// function to fetch episodeData From Consumet Meta
 export async function episodeData(episodeId) {
   try {
     const data = await fetchData(`meta/anilist/watch${episodeId}`);
@@ -164,7 +164,7 @@ export async function getEpisodeData(id) {
   }
 }
 
-// Using Anify Api to fetch Anime Info
+// Using Anify Api to fetch Anime Info and Episodes Too
 export async function getAnimeInfo(id) {
   try {
     const response = await fetch(`https://api.anify.tv/info/${id}`);

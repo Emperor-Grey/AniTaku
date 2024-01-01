@@ -1,7 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useRef, useState} from 'react';
-import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Orientation from 'react-native-orientation-locker';
 // import Video from 'react-native-video';
 import VideoPlayer from 'react-native-media-console';
@@ -75,6 +81,7 @@ export default function MyVideoPlayer({route}) {
       )}
       {!isLoading && (
         <>
+          <StatusBar translucent backgroundColor={'transparent'} />
           <VideoPlayer
             className="flex-1 items-center justify-center bg-black"
             videoRef={videoRef}

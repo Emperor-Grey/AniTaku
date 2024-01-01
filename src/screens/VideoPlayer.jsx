@@ -3,6 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useRef, useState} from 'react';
 import {
   ActivityIndicator,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -75,6 +76,7 @@ export default function MyVideoPlayer({route}) {
       )}
       {!isLoading && (
         <>
+          <StatusBar translucent backgroundColor={'transparent'} />
           <VideoPlayer
             className="flex-1 items-center justify-center bg-black"
             videoRef={videoRef}

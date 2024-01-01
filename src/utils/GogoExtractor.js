@@ -100,7 +100,6 @@ class VideoExtractor {
 
   // Method to add sources to the sources array
   async addSources(source) {
-    console.log(source);
     if (source.url.includes('m3u8')) {
       // If the source is an m3u8 file, fetch content and add individual video URLs
       const m3u8Urls = await axios

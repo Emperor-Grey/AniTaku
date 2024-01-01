@@ -118,7 +118,7 @@ export async function getPopularData() {
 // function to fetch episodeData
 export async function episodeData(episodeId) {
   try {
-    const data = await fetchData(`meta/anilist/watch/${episodeId}`);
+    const data = await fetchData(`meta/anilist/watch${episodeId}`);
     return data;
   } catch (error) {
     throw error;
@@ -161,6 +161,40 @@ export async function getEpisodeData(id) {
     };
   } catch (error) {
     throw error;
+  }
+}
+
+// Using Anify Api to fetch Anime Info
+export async function getAnimeInfo(id) {
+  try {
+    const response = await fetch(`https://api.anify.tv/info/${id}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch anime info. Status: ${response.status}`);
+    }
+    const data = await response.json();
+    return {
+      anime: {
+        id: data.id,
+        title: data.title,
+        image: data.coverImage,
+        trailer: data.trailer,
+        description: data.description,
+        status: data.status,
+        rating: `${data.rating} %`,
+        releaseDate: data.releaseDate,
+        genres: data.genres,
+        totalEpisodes: data.totalEpisodes,
+        duration: data.duration,
+        season: data.season,
+        year: data.year,
+        subOrDub: data.subOrDub,
+        recommendations: data.recommendations,
+        characters: data.characters,
+        episodes: data.episodes,
+      },
+    };
+  } catch (err) {
+    throw err;
   }
 }
 

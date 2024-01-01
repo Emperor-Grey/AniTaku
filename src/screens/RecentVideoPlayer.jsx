@@ -81,7 +81,6 @@ export default function MyVideoPlayer({route}) {
             source={{uri: selectedSource}}
             style={{width: '100%', height: '100%'}}
             resizeMode="stretch"
-            disableOverlay
             disableFullscreen
             title={item.title.english || item.title.romaji}
             doubleTapTime={10}

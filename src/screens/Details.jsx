@@ -62,12 +62,12 @@ const Details = ({route}) => {
     return (
       <View className="flex-1 justify-center items-center bg-neutral-950">
         <Text className="text-white font-semibold text-xl px-8 text-center">
-          Error Fetching Anime Info Kindly Wait for the Fix
+          Error Fetching Anime Info Kindly Try Different Server
         </Text>
         <TouchableOpacity
           className="bg-red-400 p-2 mt-4 rounded-lg"
-          onPress={() => nav.goBack()}>
-          <Text className="text-neutral-50 text-md font-bold">Go Back</Text>
+          onPress={() => nav.replace('NewDetails', {item})}>
+          <Text className="text-neutral-50 text-md font-bold">Let's go</Text>
         </TouchableOpacity>
       </View>
     );

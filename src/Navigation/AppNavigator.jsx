@@ -10,6 +10,7 @@ import React from 'react';
 import Calender from '../screens/Calender';
 import Details from '../screens/Details';
 import Home from '../screens/Home';
+import NewDetails from '../screens/NewDetails';
 import RecentVideoPlayer from '../screens/RecentVideoPlayer';
 import Search from '../screens/Search';
 import MyVideoPlayer from '../screens/VideoPlayer';
@@ -85,6 +86,7 @@ const AppNavigator = () => {
       <Stack.Screen name="VideoPlayer" component={MyVideoPlayer} />
       <Stack.Screen name="Recent" component={RecentVideoPlayer} />
       <Stack.Screen name="Details" component={Details} />
+      <Stack.Screen name="NewDetails" component={NewDetails} />
     </Stack.Navigator>
   );
 };

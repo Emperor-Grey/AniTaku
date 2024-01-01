@@ -3,6 +3,7 @@
 const BASE_URL = 'http://192.168.0.104:3000';
 
 // Helper function to handle API requests
+// const BASE_URL = 'http://192.168.0.104:3000';
 async function fetchData(endpoint) {
   try {
     const response = await fetch(`${BASE_URL}/${endpoint}`);

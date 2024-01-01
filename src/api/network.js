@@ -1,6 +1,6 @@
 // network.js
 
-const BASE_URL = 'http://192.168.0.104:3000';
+const BASE_URL = 'https://consumet-anime-api.vercel.app';
 
 // Helper function to handle API requests
 async function fetchData(endpoint) {

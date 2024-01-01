@@ -33,10 +33,13 @@ const Calendar = () => {
 
   // Render the schedule data
   return (
-    <View className="bg-neutral-950 flex-1">
+    <View className="bg-neutral-950 flex-1 justify-center items-center">
       {schedule && (
-        <SafeAreaView>
-          <Text className="text-white">{schedule.sunday[0].title.english}</Text>
+        <SafeAreaView className="flex-1 justify-center items-center">
+          <Text className="text-white text-center">
+            The Next Sunday Series is {'\n\n'}
+            {schedule.sunday[0].title.english}
+          </Text>
         </SafeAreaView>
       )}
     </View>

@@ -283,3 +283,53 @@ function mapAnimeData(animeArray) {
     airingEpisode: anime.airingEpisode,
   }));
 }
+
+export async function searchAnime(query, page) {
+  try {
+    const url = `https://api.anify.tv/search/anime/${query}/${page}`;
+    const response = await fetch(url);
+    const searchData = await response.json();
+
+    console.log(searchData.results);
+
+    const results = searchData.results.map(result => ({
+      id: result.id,
+      image: result.coverImage,
+      trailer: result.trailer,
+      status: result.status,
+      season: result.season,
+      title: result.title,
+      currentEpisode: result.currentEpisode,
+      mappings: result.mappings,
+      synonyms: result.synonyms,
+      countryOfOrigin: result.countryOfOrigin,
+      description: result.description,
+      duration: result.duration,
+      color: result.color,
+      year: result.year,
+      rating: result.rating,
+      popularity: result.popularity,
+      type: result.type,
+      format: result.format,
+      relations: result.relations,
+      totalEpisodes: result.totalEpisodes,
+      genres: result.genres,
+      tags: result.tags,
+      episodes: result.episodes,
+      averageRating: result.averageRating,
+      averagePopularity: result.averagePopularity,
+      artwork: result.artwork,
+      characters: result.characters,
+    }));
+
+    const searchInfo = {
+      total: searchData.total,
+      lastPage: searchData.lastPage,
+      results,
+    };
+
+    return searchInfo;
+  } catch (error) {
+    throw error;
+  }
+}

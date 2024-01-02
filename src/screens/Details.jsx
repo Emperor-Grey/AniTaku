@@ -90,7 +90,7 @@ const Details = ({route}) => {
           locations={[0.1, 0.5, 0.9, 1]}>
           <View className="justify-between flex-1">
             <SafeAreaView>
-              <View className="flex-row items-center justify-between p-2.5 mt-1">
+              <View className="flex-row items-center justify-between p-3 mt-1">
                 <TouchableOpacity
                   className="rounded-xl p-1"
                   onPress={() => nav.goBack()}
@@ -138,7 +138,9 @@ const Details = ({route}) => {
               showsHorizontalScrollIndicator={false}>
               {animeDetails.genres.map((genre, index) => (
                 <React.Fragment key={index}>
-                  <Text className="text-gray-300 text-center">{genre}</Text>
+                  <Text className="text-gray-300 text-center justify-center items-center">
+                    {genre}
+                  </Text>
                   {index < animeDetails.genres.length - 1 && (
                     <Text className="text-neutral-400 font-semibold text-2xl text-center justify-center items-center">
                       {' '}
@@ -154,15 +156,22 @@ const Details = ({route}) => {
 
       {/* Content below ImageBackground */}
       <View className="flex-1 bg-neutral-950 p-2">
-        <Text className="text-lime-300 text-3xl font-medium px-1">
-          S
-          <Text className="text-white text-2xl font-medium">
-            tory{' '}
-            <Text className="text-lime-300 text-3xl font-medium">
-              L<Text className="text-white text-2xl font-medium">ine</Text>
+        <View className="flex-row justify-between items-center">
+          <Text className="text-lime-300 text-3xl font-medium px-1">
+            S
+            <Text className="text-white text-2xl font-medium">
+              tory{' '}
+              <Text className="text-lime-300 text-3xl font-medium">
+                L<Text className="text-white text-2xl font-medium">ine</Text>
+              </Text>
             </Text>
           </Text>
-        </Text>
+          <TouchableOpacity
+            onPress={() => nav.replace('NewDetails', {item})}
+            className="bg-lime-300 p-1 mr-1 rounded-md">
+            <Text className="text-black">Change Server</Text>
+          </TouchableOpacity>
+        </View>
 
         <Text
           className="text-sm text-white p-3 font-normal"

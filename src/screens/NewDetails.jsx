@@ -91,7 +91,7 @@ const NewDetails = ({route}) => {
           locations={[0.1, 0.5, 0.9, 1]}>
           <View className="justify-between flex-1">
             <SafeAreaView>
-              <View className="flex-row items-center justify-between p-3 py-4 mt-1">
+              <View className="flex-row items-center justify-between p-3 mt-1">
                 <TouchableOpacity
                   className="rounded-xl p-1"
                   onPress={() => nav.goBack()}

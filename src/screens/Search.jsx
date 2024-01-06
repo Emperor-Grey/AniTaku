@@ -59,7 +59,7 @@ const Search = () => {
     } catch (error) {
       console.error('Error handling search:', error);
     } finally {
-      setLoading(false); // Set loading back to false after fetching data
+      setLoading(false);
     }
   };
 
@@ -74,7 +74,7 @@ const Search = () => {
   };
 
   const handleLongPress = async item => {
-    navigation.navigate('Details', {item});
+    navigation.navigate('NewDetails', {item});
   };
   const renderSearchItem = ({item}) => {
     return (
@@ -167,6 +167,6 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     overflow: 'hidden',
     width: responsiveWidth(32),
-    height: responsiveHeight(19),
+    height: responsiveHeight(21),
   },
 });

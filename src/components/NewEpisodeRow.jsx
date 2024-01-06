@@ -80,7 +80,7 @@ const NewEpisodeRow = ({mainData, more}) => {
       horizontal
       scrollEventThrottle={0.1}
       alwaysBounceHorizontal={true}
-      data={mainData[0].episodes}
+      data={mainData[0].episodes || []}
       showsHorizontalScrollIndicator={false}
       renderItem={renderItem}
       keyExtractor={(item, index) => index.toString()}

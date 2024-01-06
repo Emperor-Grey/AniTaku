@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useRef, useState} from 'react';
@@ -21,6 +22,7 @@ export default function MyVideoPlayer({route}) {
   const [episodeLinks, setEpisodeLinks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedQuality, setSelectedQuality] = useState('1080p');
+  const [isEmptySource, setIsEmptySource] = useState(false);
 
   const handleBack = () => {
     nav.goBack();
@@ -41,6 +43,7 @@ export default function MyVideoPlayer({route}) {
         // Handle error if needed
       } finally {
         setIsLoading(false);
+        setIsEmptySource(!(episodeLinks.length > 0)); // Check if the source is empty
       }
     };
 
@@ -50,7 +53,7 @@ export default function MyVideoPlayer({route}) {
     return () => {
       Orientation.unlockAllOrientations();
     };
-  }, [item.id]);
+  }, [item.id, episodeLinks.length]);
 
   // Map the links to create an object with quality as the key and URL as the value
   const qualityLinks = {};
@@ -107,6 +110,18 @@ export default function MyVideoPlayer({route}) {
           </TouchableOpacity>
         </>
       )}
+      {/* {!isLoading && isEmptySource && (
+        <View className="flex-1 justify-center items-center bg-neutral-950">
+          <Text className="text-white font-semibold text-xl px-8 text-center">
+            Error Fetching Anime Info, Kindly Try Different Server
+          </Text>
+          <TouchableOpacity
+            className="bg-red-400 p-2 mt-4 rounded-lg"
+            onPress={() => nav.goBack()}>
+            <Text className="text-neutral-50 text-md font-bold">Go back</Text>
+          </TouchableOpacity>
+        </View>
+      )} */}
     </View>
   );
 }
@@ -120,5 +135,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'black',
+  },
+  emptySourceContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'black',
+  },
+  emptySourceText: {
+    color: 'white',
+    fontSize: 18,
   },
 });

@@ -19,8 +19,10 @@ export default function MyVideoPlayer({route}) {
   const nav = useNavigation();
   const [episodeLinks, setEpisodeLinks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedQuality, setSelectedQuality] = useState('1080p');
-  const [error, setError] = useState(null); // New state for error handling
+  const [selectedQuality, setSelectedQuality] = useState('720p');
+  const [error, setError] = useState(null);
+
+  console.log(item.episodeId);
 
   const handleBack = () => {
     nav.goBack();

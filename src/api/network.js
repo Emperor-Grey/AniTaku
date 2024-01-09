@@ -119,7 +119,7 @@ export async function getPopularData() {
 // function to fetch episodeData From Consumet Meta
 export async function episodeData(episodeId) {
   try {
-    const data = await fetchData(`meta/anilist/watch${episodeId}`);
+    const data = await fetchData(`meta/anilist/watch/${episodeId}`);
     return data;
   } catch (error) {
     throw error;

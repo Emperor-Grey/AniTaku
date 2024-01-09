@@ -33,9 +33,36 @@ const genres = [
 
 const Home = () => {
   const [popularData, setPopularData] = useState([]);
+  const [shuffledData, setShuffledData] = useState([]);
   const [genreData, setGenreData] = useState({});
   const [recentEpisode, setRecentEpisode] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const popular = await getPopularData();
+  //       const dataPromises = genres.map(async genre => {
+  //         const genreData = await getAnimeDataByGenre(genre);
+  //         return {[genre]: genreData};
+  //       });
+  //       const recentEpisodes = await getRecentEpisodes();
+
+  //       const genreDataArray = await Promise.all(dataPromises);
+  //       const combinedGenreData = Object.assign({}, ...genreDataArray);
+
+  //       setPopularData(popular);
+  //       setGenreData(combinedGenreData);
+  //       setRecentEpisode(recentEpisodes);
+  //       setIsLoading(false);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //       setIsLoading(false);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,7 +77,18 @@ const Home = () => {
         const genreDataArray = await Promise.all(dataPromises);
         const combinedGenreData = Object.assign({}, ...genreDataArray);
 
+        // Shuffle the popularData array
+        const shuffledPopularData = [...popular];
+        for (let i = shuffledPopularData.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffledPopularData[i], shuffledPopularData[j]] = [
+            shuffledPopularData[j],
+            shuffledPopularData[i],
+          ];
+        }
+
         setPopularData(popular);
+        setShuffledData(shuffledPopularData);
         setGenreData(combinedGenreData);
         setRecentEpisode(recentEpisodes);
         setIsLoading(false);
@@ -72,7 +110,7 @@ const Home = () => {
           horizontal
           pagingEnabled
           scrollEventThrottle={0.1}
-          data={popularData}
+          data={shuffledData}
           renderItem={({item}) => <HomeBanner data={item} />}
           keyExtractor={item => item.id.toString()}
         />

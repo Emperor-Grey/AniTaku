@@ -1,11 +1,9 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useRef, useState} from 'react';
 import {
   ActivityIndicator,
   StatusBar,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -16,13 +14,16 @@ import VideoPlayer from 'react-native-media-console';
 import {episodeData} from '../api/network';
 
 export default function MyVideoPlayer({route}) {
-  const videoRef = useRef();
+  const videoRef = useRef(null);
   const {item} = route.params;
   const nav = useNavigation();
   const [episodeLinks, setEpisodeLinks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedQuality, setSelectedQuality] = useState('1080p');
-  const [isEmptySource, setIsEmptySource] = useState(false);
+  const [selectedQuality, setSelectedQuality] = useState('720p');
+  const [error, setError] = useState(null);
+
+  const episodeId = item.id.replace('/', '');
+  console.log(episodeId);
 
   const handleBack = () => {
     nav.goBack();
@@ -34,16 +35,21 @@ export default function MyVideoPlayer({route}) {
 
     const fetchEpisodeLinks = async () => {
       try {
-        const data = await episodeData(item.id);
+        if (typeof item.id === 'undefined') {
+          throw new Error('Episode ID is missing');
+        }
+
+        const data = await episodeData(episodeId);
         if (data && data.sources) {
           setEpisodeLinks(data.sources);
+        } else {
+          throw new Error('No sources found for the episode');
         }
-      } catch (error) {
-        console.error('Error fetching episode links:', error);
-        // Handle error if needed
+      } catch (err) {
+        console.error('Error fetching episode links:', err.message);
+        setError('Error fetching episode info. Please wait for a fix.');
       } finally {
         setIsLoading(false);
-        setIsEmptySource(!(episodeLinks.length > 0)); // Check if the source is empty
       }
     };
 
@@ -53,7 +59,7 @@ export default function MyVideoPlayer({route}) {
     return () => {
       Orientation.unlockAllOrientations();
     };
-  }, [item.id, episodeLinks.length]);
+  }, [item.id, episodeId]);
 
   // Map the links to create an object with quality as the key and URL as the value
   const qualityLinks = {};
@@ -70,10 +76,10 @@ export default function MyVideoPlayer({route}) {
     setSelectedQuality(newQuality);
   };
 
-  return (
-    <View style={styles.container}>
+  return !error ? (
+    <View className="flex-1">
       {isLoading && (
-        <View style={styles.loaderContainer}>
+        <View className="flex-1 justify-center items-center bg-neutral-900">
           <ActivityIndicator size="large" color="#FFF" />
         </View>
       )}
@@ -98,7 +104,7 @@ export default function MyVideoPlayer({route}) {
             onLoad={() => setIsLoading(false)}
           />
           <TouchableOpacity
-            className="absolute bottom-5 right-3 bg-neutral-900 p-1 rounded-md"
+            className="absolute bottom-3 right-3 bg-neutral-900 p-1 rounded-md"
             onPress={() => {
               const qualities = Object.keys(qualityLinks);
               const currentIndex = qualities.indexOf(selectedQuality);
@@ -110,40 +116,15 @@ export default function MyVideoPlayer({route}) {
           </TouchableOpacity>
         </>
       )}
-      {/* {!isLoading && isEmptySource && (
-        <View className="flex-1 justify-center items-center bg-neutral-950">
-          <Text className="text-white font-semibold text-xl px-8 text-center">
-            Error Fetching Anime Info, Kindly Try Different Server
-          </Text>
-          <TouchableOpacity
-            className="bg-red-400 p-2 mt-4 rounded-lg"
-            onPress={() => nav.goBack()}>
-            <Text className="text-neutral-50 text-md font-bold">Go back</Text>
-          </TouchableOpacity>
-        </View>
-      )} */}
+    </View>
+  ) : (
+    <View className="bg-neutral-900 justify-center items-center flex-1">
+      <Text className="text-white text-2xl">{error}</Text>
+      <TouchableOpacity
+        className="bg-red-400 p-2 mt-4 rounded-lg"
+        onPress={() => nav.goBack()}>
+        <Text className="text-neutral-50 text-md font-bold">Go Back</Text>
+      </TouchableOpacity>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  loaderContainer: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'black',
-  },
-  emptySourceContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'black',
-  },
-  emptySourceText: {
-    color: 'white',
-    fontSize: 18,
-  },
-});

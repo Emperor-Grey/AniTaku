@@ -31,6 +31,7 @@ const NewDetails = ({route}) => {
   const [loading, setLoading] = useState(true);
   const [enteredEpisode, setEnteredEpisode] = useState('');
   const [animeDetails, setAnimeDetails] = useState(null);
+
   useEffect(() => {
     const fetchAnimeDetails = async id => {
       try {

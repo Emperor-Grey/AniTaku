@@ -15,7 +15,7 @@ import {getSchedule} from '../api/network';
 
 const {width} = Dimensions.get('window');
 
-export default function Calender() {
+export default function CalenderUITest() {
   const swiper = useRef();
   const [value, setValue] = useState(new Date());
   const [week, setWeek] = useState(0);
@@ -143,7 +143,7 @@ export default function Calender() {
           </Text>
           {/* Additional content here if needed */}
           {/* Render The inside Data */}
-          <Text className="text-white">{schedule.sunday[0].title.english}</Text>
+          <Text className="text-white">Hello World</Text>
         </View>
 
         {/* Footer */}

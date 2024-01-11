@@ -1,6 +1,5 @@
 import {NavigationContainer} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-// import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {
   hideNavigationBar,
   showNavigationBar,
@@ -19,9 +18,7 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      {/* <GestureHandlerRootView className="flex-1"> */}
       <AppNavigator />
-      {/* </GestureHandlerRootView> */}
     </NavigationContainer>
   );
 };

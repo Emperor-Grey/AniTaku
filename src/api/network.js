@@ -227,7 +227,7 @@ export async function getAnimeDataByGenre(genre, page = 1, perPage = 15) {
 export async function getSchedule() {
   try {
     // const url = 'https://api.anify.tv/schedule?type=anime&fields=[id,title,coverImage,status,season,currentEpisode,mappings,synonyms,countryOfOrigin,description,duration,color,year,rating,popularity,type,format,relations,totalEpisodes,genres,tags,episodes,averageRating,averagePopularity,artwork,characters,airingAt,airingEpisode]';
-    const url = 'https://api.anify.tv/schedule?type=anime';
+    const url = 'https://api.anify.tv/schedule?type=Anime';
 
     const response = await fetch(url);
     const data = await response.json();

@@ -82,7 +82,7 @@ export default function HomeBanner({data}) {
 
 const style = StyleSheet.create({
   imageContainer: {
-    height: responsiveHeight(62),
+    height: responsiveHeight(63.5),
     width: responsiveWidth(100),
   },
 });

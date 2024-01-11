@@ -212,8 +212,8 @@ const styles = StyleSheet.create({
   image: {
     borderRadius: 18,
     overflow: 'hidden',
-    width: responsiveWidth(36),
-    height: responsiveHeight(22.7),
+    width: responsiveWidth(34.5),
+    height: responsiveHeight(22.6),
   },
   imageModel: {
     borderRadius: 18,

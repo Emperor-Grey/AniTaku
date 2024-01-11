@@ -1,4 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
+import {useNavigation} from '@react-navigation/native';
 import moment from 'moment';
 import React, {useEffect, useRef, useState} from 'react';
 import {
@@ -21,6 +22,7 @@ export default function Calender() {
   const [week, setWeek] = useState(0);
   const [schedule, setSchedule] = useState(null);
   const [loading, setLoading] = useState(true);
+  const nav = useNavigation();
 
   useEffect(() => {
     const fetchSchedule = async () => {
@@ -143,7 +145,7 @@ export default function Calender() {
           </Text>
           {/* Additional content here if needed */}
           {/* Render The inside Data */}
-          <Text className="text-white">{schedule.sunday[0].title.english}</Text>
+          <Text className="text-white">{schedule.monday[0].title.english}</Text>
         </View>
 
         {/* Footer */}
@@ -151,9 +153,10 @@ export default function Calender() {
           <TouchableOpacity
             onPress={() => {
               // handle onPress
+              nav.goBack();
             }}>
             <View style={styles.btn}>
-              <Text style={styles.btnText}>Schedule</Text>
+              <Text style={styles.btnText}>Go Back</Text>
             </View>
           </TouchableOpacity>
         </View>

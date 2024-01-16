@@ -20,6 +20,7 @@ import {
 } from 'react-native-responsive-dimensions';
 // import AnimeDetailsTabs from '../navigation/AnimeDetailsTabs'
 import {SafeAreaView} from 'react-native-safe-area-context';
+import AnimeDetailsTabs from '../Navigation/AnimeDetailsTabs';
 import {getEpisodeData} from '../api/network';
 import EpisodeRow from '../components/EpisodeRow';
 
@@ -220,7 +221,7 @@ const Details = ({route}) => {
         />
 
         {/* Character and Recommendations Components  */}
-        {/* <AnimeDetailsTabs /> */}
+        <AnimeDetailsTabs />
       </View>
     </ScrollView>
   );

@@ -15,6 +15,8 @@ const AnimeDetailsTabs = () => {
         headerBackgroundContainerStyle: {backgroundColor: 'rgb(10 10 10)'},
         headerShadowVisible: false,
         headerBackVisible: false,
+        tabBarAllowFontScaling: true,
+        lazy: true,
         tabBarActiveTintColor: 'rgba(190, 242, 100,1)',
         tabBarLabelStyle: {
           textTransform: 'none',

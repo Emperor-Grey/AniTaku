@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
   image: {
     resizeMode: 'stretch',
     width: responsiveWidth(100),
-    height: responsiveHeight(62.5),
+    height: responsiveHeight(63),
   },
   center: {
     justifyContent: 'center',

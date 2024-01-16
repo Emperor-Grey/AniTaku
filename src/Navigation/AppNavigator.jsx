@@ -8,6 +8,7 @@ import {
   TableDocument,
 } from 'iconsax-react-native';
 import React from 'react';
+import {responsiveHeight} from 'react-native-responsive-dimensions';
 import Calender from '../screens/Calender';
 import Details from '../screens/Details';
 import Home from '../screens/Home';
@@ -31,9 +32,11 @@ function BottomNavigation() {
         headerShadowVisible: false,
         headerBackVisible: false,
         tabBarActiveTintColor: 'rgb(190 242 100)',
+
         tabBarStyle: {
           backgroundColor: 'rgb(10 10 10)',
           elevation: -1,
+          height: responsiveHeight(6.2),
         },
       }}>
       <BottomTab.Screen

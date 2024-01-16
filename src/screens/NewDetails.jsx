@@ -21,7 +21,7 @@ import {
 // import AnimeDetailsTabs from '../navigation/AnimeDetailsTabs'
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {getAnimeInfo} from '../api/network';
-import NewEpisodeRow from '../components/NewEpisodeRow';
+import EpisodeRow from '../components/EpisodeRow';
 
 const NewDetails = ({route}) => {
   const {item} = route.params;
@@ -207,7 +207,7 @@ const NewDetails = ({route}) => {
           />
         </View>
         {/* FlatList For Episodes */}
-        <NewEpisodeRow
+        <EpisodeRow
           mainData={
             animeDetails.episodes.data.filter(
               i => i.providerId === 'gogoanime',

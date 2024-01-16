@@ -1,12 +1,14 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
-// import {TickSquare} from 'iconsax-react-native';
-import React from 'react';
+import {TickSquare} from 'iconsax-react-native';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   ImageBackground,
   StyleSheet,
   Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {
@@ -14,39 +16,63 @@ import {
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
 
-const EpisodeRow = ({data}) => {
+const EpisodeRow = ({data, mainData, more}) => {
   const navigation = useNavigation();
-  // const [selectedEpisodes, setSelectedEpisodes] = useState([]);
+  const [selectedEpisodes, setSelectedEpisodes] = useState([]);
 
-  const onPressItem = item => {
+  const onPressItem = async item => {
     navigation.navigate('VideoPlayer', {item});
 
-    // const isSelected = selectedEpisodes.some(
-    //   selected => selected.id === item.id,
-    // );
+    const isSelected = selectedEpisodes.some(
+      selected => selected.id === item.id,
+    );
 
-    // if (isSelected) {
-    //   // If the episode is already selected, remove it from the list
-    //   setSelectedEpisodes(prevSelected =>
-    //     prevSelected.filter(selected => selected.id !== item.id),
-    //   );
-    // } else {
-    //   // If the episode is not selected, add it to the list
-    //   setSelectedEpisodes(prevSelected => [...prevSelected, item]);
-    // }
+    if (isSelected) {
+      setSelectedEpisodes(prevSelected =>
+        prevSelected.filter(selected => selected.id !== item.id),
+      );
+    } else {
+      setSelectedEpisodes(prevSelected => [...prevSelected, item]);
+    }
+
+    try {
+      await AsyncStorage.setItem(
+        'selectedEpisodes',
+        JSON.stringify(selectedEpisodes),
+      );
+    } catch (error) {
+      console.error('Error storing selected episodes:', error);
+    }
   };
 
+  useEffect(() => {
+    const retrieveSelectedEpisodes = async () => {
+      try {
+        const storedSelectedEpisodes = await AsyncStorage.getItem(
+          'selectedEpisodes',
+        );
+        if (storedSelectedEpisodes) {
+          setSelectedEpisodes(JSON.parse(storedSelectedEpisodes));
+        }
+      } catch (error) {
+        console.error('Error retrieving selected episodes:', error);
+      }
+    };
+
+    retrieveSelectedEpisodes();
+  }, []);
+
   const renderItem = ({item}) => {
-    // const isSelected = selectedEpisodes.some(
-    //   selected => selected.id === item.id,
-    // );
+    const isSelected = selectedEpisodes.some(
+      selected => selected.id === item.id,
+    );
 
     return (
       <TouchableOpacity
         style={styles.episodeItem}
         onPress={() => onPressItem(item)}>
         <ImageBackground
-          source={{uri: item.image}}
+          source={{uri: item.image || more.image}}
           resizeMode="cover"
           style={styles.episodeImage}
           className="rounded-xl overflow-hidden mt-2">
@@ -60,7 +86,7 @@ const EpisodeRow = ({data}) => {
               {item.title}
             </Text>
           </LinearGradient>
-          {/* {isSelected && (
+          {isSelected && (
             <View style={styles.overlayContainer}>
               <LinearGradient
                 style={styles.overlayGradient}
@@ -68,7 +94,7 @@ const EpisodeRow = ({data}) => {
                 <TickSquare size={35} color="green" variant="Bulk" />
               </LinearGradient>
             </View>
-          )} */}
+          )}
         </ImageBackground>
       </TouchableOpacity>
     );
@@ -80,7 +106,7 @@ const EpisodeRow = ({data}) => {
       horizontal
       scrollEventThrottle={0.1}
       alwaysBounceHorizontal={true}
-      data={data}
+      data={data || mainData[0].episodes}
       showsHorizontalScrollIndicator={false}
       renderItem={renderItem}
       keyExtractor={(item, index) => index.toString()}
@@ -99,15 +125,21 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     height: responsiveHeight(15),
   },
-  // overlayContainer: {
-  //   ...StyleSheet.absoluteFillObject,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  // },
-  // overlayGradient: {
-  //   width: '100%',
-  //   height: '100%',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  // },
+  overlayContainer: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  overlayGradient: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  episodeTitle: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+    paddingRight: 7,
+  },
 });

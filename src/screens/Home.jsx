@@ -1,12 +1,8 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable no-shadow */
+import LottieView from 'lottie-react-native';
 import React, {useEffect, useState} from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  ScrollView,
-  StatusBar,
-  View,
-} from 'react-native';
+import {FlatList, ScrollView, StatusBar, View} from 'react-native';
 import {
   getAnimeDataByGenre,
   getPopularData,
@@ -116,8 +112,13 @@ const Home = () => {
         />
 
         {isLoading ? (
-          <View className="flex-1 justify-center items-center mt-[100%]">
-            <ActivityIndicator size="large" color="#ffffff" />
+          <View className="flex-1 justify-center items-center mt-[85%]">
+            <LottieView
+              source={require('../../assets/Lottie/loading.json')}
+              autoPlay
+              loop
+              style={{width: 200, height: 200}}
+            />
           </View>
         ) : (
           <>

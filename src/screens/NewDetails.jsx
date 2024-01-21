@@ -3,7 +3,6 @@ import {useNavigation} from '@react-navigation/native';
 import {ArrowLeft2, Heart} from 'iconsax-react-native';
 import React, {useEffect, useState} from 'react';
 import {
-  ActivityIndicator,
   Clipboard,
   ImageBackground,
   ScrollView,
@@ -19,6 +18,7 @@ import {
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
 // import AnimeDetailsTabs from '../navigation/AnimeDetailsTabs'
+import LottieView from 'lottie-react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {getAnimeInfo} from '../api/network';
 import EpisodeRow from '../components/EpisodeRow';
@@ -54,7 +54,12 @@ const NewDetails = ({route}) => {
     // Render loading indicator while data is being fetched
     return (
       <View className="flex-1 justify-center items-center bg-neutral-950">
-        <ActivityIndicator size="large" color="##a3ef29" />
+        <LottieView
+          source={require('../../assets/Lottie/loading.json')}
+          autoPlay
+          loop
+          style={{width: 200, height: 200}}
+        />
       </View>
     );
   }

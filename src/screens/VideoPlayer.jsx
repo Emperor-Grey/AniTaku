@@ -1,15 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useRef, useState} from 'react';
-import {
-  ActivityIndicator,
-  StatusBar,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {StatusBar, Text, TouchableOpacity, View} from 'react-native';
 import Orientation from 'react-native-orientation-locker';
 // import Video from 'react-native-video';
+import LottieView from 'lottie-react-native';
 import VideoPlayer from 'react-native-media-console';
 import {episodeData} from '../api/network';
 
@@ -80,7 +75,12 @@ export default function MyVideoPlayer({route}) {
     <View className="flex-1">
       {isLoading && (
         <View className="flex-1 justify-center items-center bg-neutral-900">
-          <ActivityIndicator size="large" color="#FFF" />
+          <LottieView
+            source={require('../../assets/Lottie/loading.json')}
+            autoPlay
+            loop
+            style={{width: 200, height: 200}}
+          />
         </View>
       )}
       {!isLoading && (

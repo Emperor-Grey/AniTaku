@@ -19,6 +19,7 @@
     "@react-navigation/stack": "^6.3.20",
     "axios": "^1.6.5",
     "iconsax-react-native": "^0.0.8",
+    "lottie-react-native": "^6.5.1",
     "moment": "^2.30.1",
     "nativewind": "^2.0.11",
     "react": "18.2.0",

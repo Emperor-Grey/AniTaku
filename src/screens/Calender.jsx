@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
+import LottieView from 'lottie-react-native';
 import moment from 'moment';
 import React, {useEffect, useRef, useState} from 'react';
 import {
@@ -58,7 +59,12 @@ export default function Calender() {
   if (loading) {
     return (
       <View className="bg-neutral-950 flex-1 justify-center items-center">
-        <Text className="text-white text-4xl">Loading...</Text>
+        <LottieView
+          source={require('../../assets/Lottie/loading.json')}
+          autoPlay
+          loop
+          style={{width: 200, height: 200}}
+        />
       </View>
     );
   }

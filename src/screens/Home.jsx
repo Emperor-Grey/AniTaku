@@ -35,6 +35,21 @@ const Home = () => {
   // const [recentEpisode, setRecentEpisode] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // for Pagination
+  const [page, setPage] = useState(1);
+  const initialItems = 6;
+
+  const pagination = (items, pageNum, pageSize) => {
+    const startIndex = (pageNum - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    if (startIndex >= items.length) {
+      return [];
+    }
+
+    return items.slice(startIndex, endIndex);
+  };
+
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -109,6 +124,13 @@ const Home = () => {
           showsHorizontalScrollIndicator={false}
           horizontal
           pagingEnabled
+          onEndReachedThreshold={0.5}
+          // onEndReached={() =>{
+          //   let newData = pagination();
+          //   if(newData.length > 0){
+
+          //   }
+          // }}
           scrollEventThrottle={0.1}
           data={shuffledData}
           renderItem={({item}) => <HomeBanner data={item} />}

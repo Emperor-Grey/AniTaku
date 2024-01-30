@@ -1,6 +1,6 @@
 // network.js
 
-const BASE_URL = 'http://192.168.0.104:3000';
+const BASE_URL = 'https://consumet-anime-api.vercel.app';
 
 // Helper function to handle API requests
 // const BASE_URL = 'http://192.168.0.104:3000';
@@ -40,7 +40,7 @@ export async function getRecentEpisodes() {
 // Function to get popular anime data
 export async function getPopularData() {
   try {
-    const data = await fetchData('meta/anilist/popular?page=1&perPage=10');
+    const data = await fetchData('meta/anilist/popular?page=1&perPage=15');
     return data.results.map(anime => {
       return {
         id: anime.id,
@@ -64,31 +64,31 @@ export async function getPopularData() {
   }
 }
 
-// // Function to get trending anime data
-//! i don't trust this Bullshit
-// export async function getTrendingData() {
-//   try {
-//     const data = await fetchData('meta/anilist/trending?page=3&perPage=10');
-//     return data.results.map(anime => ({
-//       id: anime.id,
-//       title: anime.title,
-//       image: anime.image,
-//       trailer: anime.trailer,
-//       description: anime.description,
-//       status: anime.status,
-//       cover: anime.cover,
-//       rating: `${anime.rating}%`,
-//       releaseDate: anime.releaseDate,
-//       color: anime.color,
-//       genres: anime.genres,
-//       totalEpisodes: anime.totalEpisodes,
-//       duration: anime.duration,
-//       type: anime.type,
-//     }));
-//   } catch (error) {
-//     throw error;
-//   }
-// }
+// Function to get trending anime data
+// ! i don't trust this Bullshit
+export async function getTrendingData() {
+  try {
+    const data = await fetchData('meta/anilist/trending?page=1&perPage=15');
+    return data.results.map(anime => ({
+      id: anime.id,
+      title: anime.title,
+      image: anime.image,
+      trailer: anime.trailer,
+      description: anime.description,
+      status: anime.status,
+      cover: anime.cover,
+      rating: `${anime.rating}%`,
+      releaseDate: anime.releaseDate,
+      color: anime.color,
+      genres: anime.genres,
+      totalEpisodes: anime.totalEpisodes,
+      duration: anime.duration,
+      type: anime.type,
+    }));
+  } catch (error) {
+    throw error;
+  }
+}
 
 // Function to get random anime data
 // ! For Strange Reason This Does not work every time hence not used

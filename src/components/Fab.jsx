@@ -60,17 +60,29 @@ const Fab = () => {
         flex: 1,
       }}>
       <Animated.View style={[styles.circle, {bottom: icon_1}]}>
-        <TouchableOpacity onPress={() => nav.navigate('Search')}>
+        <TouchableOpacity
+          onPress={() => {
+            nav.navigate('Search');
+            pop === false ? popIn() : popOut();
+          }}>
           <SearchNormal1 size="32" color="lime" />
         </TouchableOpacity>
       </Animated.View>
       <Animated.View style={[styles.circle, {bottom: icon_2, right: icon_2}]}>
-        <TouchableOpacity onPress={() => nav.navigate('Calender')}>
+        <TouchableOpacity
+          onPress={() => {
+            nav.navigate('Calender');
+            pop === false ? popIn() : popOut();
+          }}>
           <Calendar size="32" color="lime" />
         </TouchableOpacity>
       </Animated.View>
       <Animated.View style={[styles.circle, {right: icon_3}]}>
-        <TouchableOpacity onPress={() => nav.navigate('library')}>
+        <TouchableOpacity
+          onPress={() => {
+            nav.navigate('library');
+            pop === false ? popIn() : popOut();
+          }}>
           <TableDocument size="32" color="lime" />
         </TouchableOpacity>
       </Animated.View>
@@ -90,12 +102,12 @@ export default Fab;
 const styles = StyleSheet.create({
   circle: {
     backgroundColor: 'rgb(31 41 65)',
-    width: 58,
-    height: 58,
+    width: 56,
+    height: 56,
     position: 'absolute',
     bottom: 20,
     right: 20,
-    borderRadius: 54 / 2,
+    borderRadius: 56 / 2,
     justifyContent: 'center',
     alignItems: 'center',
   },

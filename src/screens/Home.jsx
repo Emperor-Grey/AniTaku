@@ -6,7 +6,7 @@ import {FlatList, ScrollView, StatusBar, View} from 'react-native';
 import {
   getAnimeDataByGenre,
   getPopularData,
-  getRecentEpisodes,
+  getTrendingData,
 } from '../api/network';
 import Fab from '../components/Fab';
 import HomeBanner from '../components/HomeBanner';
@@ -29,9 +29,10 @@ const genres = [
 
 const Home = () => {
   const [popularData, setPopularData] = useState([]);
+  const [trendingData, setTrendingData] = useState([]);
   const [shuffledData, setShuffledData] = useState([]);
   const [genreData, setGenreData] = useState({});
-  const [recentEpisode, setRecentEpisode] = useState([]);
+  // const [recentEpisode, setRecentEpisode] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // useEffect(() => {
@@ -64,17 +65,19 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const popular = await getPopularData();
+        const trending = await getTrendingData();
         const dataPromises = genres.map(async genre => {
           const genreData = await getAnimeDataByGenre(genre);
           return {[genre]: genreData};
         });
-        const recentEpisodes = await getRecentEpisodes();
+        // const recentEpisodes = await getRecentEpisodes();
 
         const genreDataArray = await Promise.all(dataPromises);
         const combinedGenreData = Object.assign({}, ...genreDataArray);
 
         // Shuffle the popularData array
-        const shuffledPopularData = [...popular];
+        // const shuffledPopularData = [...popular];
+        const shuffledPopularData = [...trending];
         for (let i = shuffledPopularData.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           [shuffledPopularData[i], shuffledPopularData[j]] = [
@@ -84,9 +87,10 @@ const Home = () => {
         }
 
         setPopularData(popular);
+        setTrendingData(trending);
         setShuffledData(shuffledPopularData);
         setGenreData(combinedGenreData);
-        setRecentEpisode(recentEpisodes);
+        // setRecentEpisode(recentEpisodes);
         setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -122,8 +126,9 @@ const Home = () => {
           </View>
         ) : (
           <>
-            <RowItem name="Recent Episodes" data={recentEpisode} />
+            {/* <RowItem name="Recent Episodes" data={recentEpisode} /> */}
             <RowItem name="Popular" data={popularData} />
+            <RowItem name="Trending" data={trendingData} />
             {genres.map(genre => (
               <RowItem key={genre} name={genre} data={genreData[genre] || []} />
             ))}

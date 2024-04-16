@@ -6,33 +6,36 @@ import {FlatList, ScrollView, StatusBar, View} from 'react-native';
 import {
   getAnimeDataByGenre,
   getPopularData,
+  getRecentEpisodes,
   getTrendingData,
 } from '../api/network';
 import Fab from '../components/Fab';
 import HomeBanner from '../components/HomeBanner';
 import RowItem from '../components/RowItem';
 
-const genres = [
-  'Comedy',
-  'Fantasy',
-  'Horror',
-  'Mecha',
-  'Music',
-  'Mystery',
-  'Psychological',
-  'Romance',
-  'Sci-Fi',
-  'Slice of Life',
-  'Sports',
-  'Thriller',
-];
+// const genres = [
+//   'Comedy',
+//   'Fantasy',
+//   'Horror',
+//   'Mecha',
+//   'Music',
+//   'Mystery',
+//   'Psychological',
+//   'Romance',
+//   'Sci-Fi',
+//   'Slice of Life',
+//   'Sports',
+//   'Thriller',
+// ];
+
+const genres = ['Fantasy', 'Romance', 'Sports'];
 
 const Home = () => {
   const [popularData, setPopularData] = useState([]);
   const [trendingData, setTrendingData] = useState([]);
   const [shuffledData, setShuffledData] = useState([]);
   const [genreData, setGenreData] = useState({});
-  // const [recentEpisode, setRecentEpisode] = useState([]);
+  const [recentEpisode, setRecentEpisode] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // for Pagination
@@ -85,7 +88,7 @@ const Home = () => {
           const genreData = await getAnimeDataByGenre(genre);
           return {[genre]: genreData};
         });
-        // const recentEpisodes = await getRecentEpisodes();
+        const recentEpisodes = await getRecentEpisodes();
 
         const genreDataArray = await Promise.all(dataPromises);
         const combinedGenreData = Object.assign({}, ...genreDataArray);
@@ -105,7 +108,7 @@ const Home = () => {
         setTrendingData(trending);
         setShuffledData(shuffledPopularData);
         setGenreData(combinedGenreData);
-        // setRecentEpisode(recentEpisodes);
+        setRecentEpisode(recentEpisodes);
         setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -118,7 +121,12 @@ const Home = () => {
 
   return (
     <View className="bg-neutral-950 flex-1">
-      <StatusBar translucent backgroundColor={'transparent'} />
+      <StatusBar
+        translucent
+        backgroundColor={'transparent'}
+        animated={true}
+        showHideTransition={true}
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
         <FlatList
           showsHorizontalScrollIndicator={false}
@@ -148,7 +156,7 @@ const Home = () => {
           </View>
         ) : (
           <>
-            {/* <RowItem name="Recent Episodes" data={recentEpisode} /> */}
+            <RowItem name="Recent Episodes" data={recentEpisode} />
             <RowItem name="Popular" data={popularData} />
             <RowItem name="Trending" data={trendingData} />
             {genres.map(genre => (

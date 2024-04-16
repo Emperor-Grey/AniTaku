@@ -1,7 +1,7 @@
-/* eslint-disable react/no-unstable-nested-components */
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import Calender from '../screens/Calender';
+import CalenderUi from '../screens/CalenderUiTest';
 import Details from '../screens/Details';
 import Home from '../screens/Home';
 import NewDetails from '../screens/NewDetails';
@@ -80,8 +80,9 @@ const AppNavigator = () => {
       {/* <Stack.Screen name="BottomNav" component={BottomNavigation} /> */}
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Search" component={Search} />
-      <Stack.Screen name="Calender" component={Calender} />
       <Stack.Screen name="library" component={Library} />
+      <Stack.Screen name="Calender" component={Calender} />
+      <Stack.Screen name="CalenderUI" component={CalenderUi} />
       <Stack.Screen name="YoutubePlayer" component={YoutubePlayerScreen} />
       <Stack.Screen name="VideoPlayer" component={MyVideoPlayer} />
       <Stack.Screen name="Recent" component={RecentVideoPlayer} />

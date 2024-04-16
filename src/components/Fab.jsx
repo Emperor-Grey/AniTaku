@@ -102,12 +102,12 @@ export default Fab;
 const styles = StyleSheet.create({
   circle: {
     backgroundColor: 'rgb(31 41 65)',
-    width: 56,
-    height: 56,
+    width: 63,
+    height: 63,
     position: 'absolute',
     bottom: 20,
     right: 20,
-    borderRadius: 56 / 2,
+    borderRadius: 63 / 2,
     justifyContent: 'center',
     alignItems: 'center',
   },

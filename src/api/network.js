@@ -1,6 +1,6 @@
 // network.js
 
-const BASE_URL = 'http://192.168.0.104:3000';
+const BASE_URL = 'http://192.168.0.105:3000';
 
 // Helper function to handle API requests
 // const BASE_URL = 'http://192.168.0.104:3000';
@@ -227,7 +227,8 @@ export async function getAnimeDataByGenre(genre, page = 1, perPage = 15) {
 export async function getSchedule() {
   try {
     // const url = 'https://api.anify.tv/schedule?type=anime&fields=[id,title,coverImage,status,season,currentEpisode,mappings,synonyms,countryOfOrigin,description,duration,color,year,rating,popularity,type,format,relations,totalEpisodes,genres,tags,episodes,averageRating,averagePopularity,artwork,characters,airingAt,airingEpisode]';
-    const url = 'https://api.anify.tv/schedule?type=Anime';
+    const url =
+      'https://api.anify.tv/schedule?type=anime&fields=[id,title,coverImage,rating]';
 
     const response = await fetch(url);
     const data = await response.json();

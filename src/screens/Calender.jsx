@@ -152,7 +152,15 @@ export default function Calender() {
           {/* Additional content here if needed */}
           {/* Render The inside Data */}
           <Text className="text-white">{schedule.monday[0].title.english}</Text>
+          <Text className="text-white">{schedule.monday[1].title.english}</Text>
+          <Text className="text-white">{schedule.monday[2].title.english}</Text>
+          <Text className="text-white">{schedule.monday[3].title.english}</Text>
+          <Text className="text-white">{schedule.monday[4].title.english}</Text>
+          <Text className="text-white">{schedule.monday[5].title.english}</Text>
+          <Text className="text-white">{schedule.monday[6].title.english}</Text>
+          <Text className="text-white">{schedule.monday[7].title.english}</Text>
         </View>
+        {console.log(schedule.sunday)}
 
         {/* Footer */}
         <View style={styles.footer}>

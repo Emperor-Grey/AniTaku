@@ -32,9 +32,9 @@ export default function HomeBanner({data}) {
           uri: data.image,
         }}
         resizeMode="cover"
-        className="flex-1 w-full h-[100%]">
+        className="flex-1 h-[100%] w-max">
         <LinearGradient
-          className=" flex-1"
+          className="flex-1"
           colors={[
             'rgba(0,0,0,0.17)',
             'rgba(0,0,0,0.09)',

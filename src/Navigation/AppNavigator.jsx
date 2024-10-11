@@ -73,21 +73,23 @@ const Stack = createNativeStackNavigator();
 // }
 
 const AppNavigator = () => {
-    return (<Stack.Navigator
-            initialRouteName="Home"
-            screenOptions={{headerShown: false}}>
-            {/* <Stack.Screen name="BottomNav" component={BottomNavigation} /> */}
-            <Stack.Screen name="Home" component={Home}/>
-            <Stack.Screen name="Search" component={Search}/>
-            <Stack.Screen name="library" component={Library}/>
-            <Stack.Screen name="Calender" component={Calender}/>
-            <Stack.Screen name="CalenderUI" component={CalenderUi}/>
-            <Stack.Screen name="YoutubePlayer" component={YoutubePlayerScreen}/>
-            <Stack.Screen name="VideoPlayer" component={MyVideoPlayer}/>
-            <Stack.Screen name="Recent" component={RecentVideoPlayer}/>
-            <Stack.Screen name="Details" component={Details}/>
-            <Stack.Screen name="NewDetails" component={NewDetails}/>
-        </Stack.Navigator>);
+  return (
+    <Stack.Navigator
+      initialRouteName="Home"
+      screenOptions={{headerShown: false}}>
+      {/* <Stack.Screen name="BottomNav" component={BottomNavigation} /> */}
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Search" component={Search} />
+      <Stack.Screen name="library" component={Library} />
+      <Stack.Screen name="Calender" component={Calender} />
+      <Stack.Screen name="CalenderUI" component={CalenderUi} />
+      <Stack.Screen name="YoutubePlayer" component={YoutubePlayerScreen} />
+      <Stack.Screen name="VideoPlayer" component={MyVideoPlayer} />
+      <Stack.Screen name="Recent" component={RecentVideoPlayer} />
+      <Stack.Screen name="Details" component={Details} />
+      <Stack.Screen name="NewDetails" component={NewDetails} />
+    </Stack.Navigator>
+  );
 };
 
 export default AppNavigator;

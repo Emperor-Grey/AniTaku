@@ -1,6 +1,6 @@
 // network.js
 
-const BASE_URL = 'http://192.168.0.105:3000';
+const BASE_URL = 'http://192.168.71.11:3000';
 
 // Helper function to handle API requests
 // const BASE_URL = 'http://192.168.0.104:3000';
@@ -282,6 +282,37 @@ function mapAnimeData(animeArray) {
     airingAt: anime.airingAt,
     airingEpisode: anime.airingEpisode,
   }));
+}
+
+// Function to search anime data based on a query from Anify
+export async function searchAnimeAnilist(query, page) {
+  try {
+    const data = await fetchData('meta/anilist/{query}?page={page}');
+    return data.results.map(anime => ({
+      id: anime.id,
+      title: anime.title,
+      image: anime.coverImage,
+      trailer: anime.trailer,
+      description: anime.description,
+      status: anime.status,
+      season: anime.season,
+      currentEpisode: anime.currentEpisode,
+      synonyms: anime.synonyms,
+      countryOfOrigin: anime.countryOfOrigin,
+      rating: anime.rating,
+      releaseDate: anime.year,
+      color: anime.color,
+      popularity: anime.popularity,
+      genres: anime.genres,
+      totalEpisodes: anime.totalEpisodes,
+      duration: anime.duration,
+      type: anime.type,
+      format: anime.format,
+    }));
+  } catch (error) {
+    console.error('Error searching anime:', error);
+    throw error;
+  }
 }
 
 export async function searchAnime(query, page) {

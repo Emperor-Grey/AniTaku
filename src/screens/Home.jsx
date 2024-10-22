@@ -38,19 +38,19 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   // for Pagination
-  const [page, setPage] = useState(1);
-  const initialItems = 6;
+  // const [page, setPage] = useState(1);
+  // const initialItems = 6;
 
-  const pagination = (items, pageNum, pageSize) => {
-    const startIndex = (pageNum - 1) * pageSize;
-    const endIndex = startIndex + pageSize;
+  // const pagination = (items, pageNum, pageSize) => {
+  //   const startIndex = (pageNum - 1) * pageSize;
+  //   const endIndex = startIndex + pageSize;
 
-    if (startIndex >= items.length) {
-      return [];
-    }
+  //   if (startIndex >= items.length) {
+  //     return [];
+  //   }
 
-    return items.slice(startIndex, endIndex);
-  };
+  //   return items.slice(startIndex, endIndex);
+  // };
 
   // useEffect(() => {
   //   const fetchData = async () => {
